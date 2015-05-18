@@ -14,12 +14,12 @@ mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/challenges_dev
 
 app.use(passport.initialize());
 
-require("./lib/passport_strategies")(passport);
+require("./lib/passport_strat")(passport);
 
-require("./routes/challenge_routes")(challengeRoutes);
+//require("./routes/challenge_routes")(challengeRoutes);
 require("./routes/auth_routes")(userRoutes, passport);
 
-app.use("/api", challenge_routes);
+//app.use("/api", challenge_routes);
 app.use("/api", userRoutes);
 
 app.listen(process.env.PORT || 3000, function() {
