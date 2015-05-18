@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-simple-mocha");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-jscs");
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     jshint: {
@@ -27,6 +28,23 @@ module.exports = function(grunt) {
       dev: {
         src: ["test/**/*.js"]
       }
+    },
+
+    watch: {
+      configFiles: {
+        files: ['Gruntfile.js'],
+        options: {
+          reload: true,
+          event: ['changed']
+        }
+      },
+      scripts: {
+        files: ['*.js', 'models/**/*.js', 'test/**/*.js', 'routes/**/*.js', 'lib/**/*.js'],
+        tasks: ['test', 'simplemocha:dev'],
+        options: {
+          event: ['added', 'deleted', 'changed']
+        },
+      },
     },
 
     jscs: {
