@@ -12,7 +12,7 @@ var challengeSchema = mongoose.Schema({
   	timestamp: String
   },
   creator: String,
-  image: String,
+  imageURL: String,
   submissionsMsg: String, // only for submitting a challenge, not for creation.
   submitters: Array,
   submissionsCount: Number
