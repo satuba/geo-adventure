@@ -44,7 +44,7 @@ module.exports = function(router, passport) {
     });//end generateHash
   });//end POST method
 
-  router.get('/sign_in', function(req, res) {
+  router.get('/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
     req.user.generateToken(process.env.APP_SECRET, function(err, token) {
       if(err) {
         console.log(err);
