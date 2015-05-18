@@ -40,7 +40,7 @@ module.exports = function(router) {
     newChallenge.location.longitude = req.body.longitude;
     newChallenge.location.altitude = req.body.altitude;
     newChallenge.creator = req.body.creator;
-    newChallenge.image = req.body.image;
+    newChallenge.imageURL = req.body.imageURL;
     newChallenge.timestamp = req.body.timestamp;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
