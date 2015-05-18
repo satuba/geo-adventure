@@ -7,7 +7,6 @@ module.exports = function(router, passport) {
   router.use(bodyparser.json());
 
   router.post('/create_user', function(req, res) {
-    // console.log(req.body);
     //add layer of protection
     var newUserData = JSON.parse(JSON.stringify(req.body));
     delete newUserData.email;
@@ -15,9 +14,7 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    //newUser.basic.password = req.body.password;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
-        console.log('line 20 ' + req.body.password);
         if(err) {
           console.log(err);
           return res.status(500).json({msg: 'could not save password'});
@@ -26,7 +23,6 @@ module.exports = function(router, passport) {
         newUser.basic.password = hash;
 
         newUser.save(function(err, user) {
-          console.log('line 31 in auth route ' + user);
           if(err) {
             console.log(err);
             return res.status(500).json({msg: 'could not create user'});

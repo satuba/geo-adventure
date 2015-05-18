@@ -6,7 +6,6 @@ var eat = require('eat');
 
 var userSchema = mongoose.Schema({
   username: { type: String, unique: true},
-  //userId: String,
   basic: {
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
@@ -14,7 +13,6 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.methods.generateHash = function(password, callback) {
-  //console.log(password);
   bcrypt.genSalt(8, function(err, salt) {
     if(err) {
       return console.log(err);
@@ -24,8 +22,8 @@ userSchema.methods.generateHash = function(password, callback) {
       if(err) {
         return console.log(err);
       }
-      console.log('line 27 in genHash ' + password);
-      callback(err, hash);
+      
+      callback(null, hash);
     });
   });
 };
@@ -42,6 +40,7 @@ userSchema.methods.checkPassword = function(password, callback) {
 };
 
 userSchema.methods.generateToken = function(secret, callback) {
+  /*not using another key outside of DB id since we are   not expiring user tokens*/
   eat.encode({id: this._id}, secret, callback);
 };
 

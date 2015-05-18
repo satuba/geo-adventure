@@ -16,10 +16,10 @@ app.use(passport.initialize());
 
 require("./lib/passport_strat")(passport);
 
-//require("./routes/challenge_routes")(challengeRoutes);
+require("./routes/challenge_routes")(challengeRoutes);
 require("./routes/auth_routes")(userRoutes, passport);
 
-//app.use("/api", challengeRoutes);
+app.use("/api", challengeRoutes);
 app.use("/api", userRoutes);
 
 app.listen(process.env.PORT || 3000, function() {
