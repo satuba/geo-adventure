@@ -22,6 +22,6 @@
 
 var write = require('./lib/imageWriter.js');
 
-write('./img/sunflower.jpeg', function () {
+write('./sunflower.jpeg', function () {
   console.log('file saved');
 })

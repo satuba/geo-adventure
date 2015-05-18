@@ -5,7 +5,7 @@ var express = require("express");
 var passport = require("passport");
 var app = express();
 
-process.env.APP_SECRET = process.env.APP_SECRET || "app wide secret, Claudia";
+process.env.APP_SECRET = process.env.APP_SECRET || "changethisdamnpassword";
 
 var challengeRoutes = express.Router();
 var userRoutes = express.Router();
@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/challenges_dev
 
 app.use(passport.initialize());
 
-require("./lib/passport_strategies")(passport);
+require("./lib/passport_strat")(passport);
 
 require("./routes/challenge_routes")(challengeRoutes);
 require("./routes/auth_routes")(userRoutes, passport);
