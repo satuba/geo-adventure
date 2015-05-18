@@ -17,7 +17,7 @@ app.use(passport.initialize());
 require("./lib/passport_strategies")(passport);
 
 require("./routes/challenge_routes")(challengeRoutes);
-require(".routes/auth_routes")(userRoutes, passport);
+require("./routes/auth_routes")(userRoutes, passport);
 
 app.use("/api", challenge_routes);
 app.use("/api", userRoutes);
