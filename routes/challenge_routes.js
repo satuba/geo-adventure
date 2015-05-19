@@ -3,12 +3,15 @@
 var Challenge = require('../models/Challenge');
 var bodyparser = require('body-parser');
 var uuid = require('node-uuid');
+var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var auth = require('./auth_routes');
+var User = require("../models/User");
 
 module.exports = function(router) {
   router.use(bodyparser.json());
 
   //GET request to get all challenges
-  router.get('/challenges', function(req, res) {
+  router.get('/challenges', eatAuth, function(req, res) {
     Challenge.find({}, function(err, data) {
       if (err) {
         console.log(err);
@@ -19,7 +22,7 @@ module.exports = function(router) {
   });
 
   //GET request to get a challenge by challenge id
-  router.get('/challenges/:challengeId', function(req, res) {
+  router.get('/challenges/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, data) {
       if(err) {
         console.log(err);
@@ -30,7 +33,7 @@ module.exports = function(router) {
   });
 
   //POST request creates a new challenge
-  router.post('/challenges/newchallenge', function(req, res) {
+  router.post('/challenges/newchallenge', eatAuth, function(req, res) {
     var randomChallengeId = uuid.v1();
     var newChallengeData = JSON.parse(JSON.stringify(req.body));
     var newChallenge = new Challenge(newChallengeData);
@@ -54,7 +57,8 @@ module.exports = function(router) {
   });
 
   // PATCH request to submit completed challenge
-  router.patch('/challenges/submit/:challengeId', function(req, res) {
+  // to submit, just patch { submissionsMsg: 'submission message', eat:'token' }
+  router.patch('/challenges/submit/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, challenge) {
       if(err) {
         console.log(err);
