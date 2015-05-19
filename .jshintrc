@@ -1,10 +1,11 @@
 {
-  "requireCurlyBraces": [ 
-    "if",
-    "else",
-    "for",
-    "while"
-  ],
-  "validateQuoteMarks": "'",
-  "requireCapitalizedConstructors": true
+  "node": true,
+  "globals": {
+    "describe": true,
+    "it": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true
+  }
 }
