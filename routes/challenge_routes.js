@@ -9,7 +9,8 @@ var User = require('../models/User');
 var uploadPhoto = require('../lib/uploadPhoto');
 
 module.exports = function(router) {
-  router.use(bodyparser.json());
+  router.use(bodyparser.json({limit: '50mb'}));
+  router.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 
   //GET request to get all challenges
   router.get('/challenges', eatAuth, function(req, res) {
