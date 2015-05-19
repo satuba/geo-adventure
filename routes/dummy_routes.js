@@ -35,8 +35,8 @@ function createFile (file, callback) {
     // run createFile function on the imageBuffer
     createFile(imageBuffer, function () {
       console.log('file saved');
-    })
+    });
     // respond that image has been saved
     res.json({msg: 'image saved'});
-  })
- }
+  });
+ };
