@@ -15,7 +15,6 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/challenges_dev
 app.use(passport.initialize());
 
 require('./lib/passport_strat')(passport);
-<<<<<<< HEAD
 
 require('./routes/challenge_routes')(challengeRoutes);
 require('./routes/auth_routes')(userRoutes, passport);
@@ -26,8 +25,6 @@ app.use('/api', userRoutes);
 app.listen(process.env.PORT || 3000, function() {
   console.log('server running on port: ' + (process.env.PORT || 3000));
 });
-=======
->>>>>>> 1c3b78fa1a57453e391856fd0a81ac118a9ff918
 
 require('./routes/challenge_routes')(challengeRoutes);
 require('./routes/auth_routes')(userRoutes, passport);
