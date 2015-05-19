@@ -13,6 +13,11 @@ var challengeSchema = mongoose.Schema({
   },
   creator: String,
   imageURL: Array,
+  rating: {
+    newRating: Number,
+    allRatings: Array,
+    averageRating: Number
+  },
   submissionsMsg: String, // only for submitting a challenge, not for creation.
   submitters: Array,
   submissionsCount: Number
