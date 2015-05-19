@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-**/node_modules/
-**/db/
-=======
 node_modules
 db/
->>>>>>> c1a23ccf232bc86226a701713f5652f1606cef9c
