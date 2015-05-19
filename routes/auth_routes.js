@@ -17,7 +17,8 @@ module.exports = function(router, passport) {
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
         if(err) {
           console.log(err);
-          return res.status(500).json({msg: 'could not save password'});
+          //could not save password
+          return res.status(500).json({msg: 'no password'});
         }
       
         newUser.basic.password = hash;
@@ -25,13 +26,17 @@ module.exports = function(router, passport) {
         newUser.save(function(err, user) {
           if(err) {
             console.log(err);
-            return res.status(500).json({msg: 'could not create user'});
+            var grabError = JSON.parse(JSON.stringify(err));
+            var cleanError = grabError.errmsg.substr(57, 15);
+            //could not create user
+            return res.status(500).json({msg: cleanError});
           }
-                
+                          
           user.generateToken(process.env.APP_SECRET, function(err, token) {
             if(err) {
               console.log(err);
-              return res.status(500).json({msg: 'error generating token'});
+              //error generating token
+              return res.status(500).json({msg: 'no token'});
             }
 
           res.json({token: token});
