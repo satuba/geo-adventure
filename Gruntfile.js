@@ -1,64 +1,39 @@
-"use strict";
+'use strict';
 
 module.exports = function(grunt) {
-  grunt.loadNpmTasks("grunt-simple-mocha");
-  grunt.loadNpmTasks("grunt-contrib-jshint");
-  grunt.loadNpmTasks("grunt-jscs");
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jscs');
 
   grunt.initConfig({
     jshint: {
       dev: {
-        src: ["*.js", "models/**/*.js", "routes/**/*.js", "test/**/*.js"]
+        src: ['*.js', './models/**/*.js', './routes/**/*.js', './lib/**/*.js', './test/**/*.js']
       },
       options: {
-        node: true,
-        globals: {
-          describe: true,
-          it: true,
-          before: true,
-          after: true,
-          beforeEach: true,
-          afterEach: true
-        }
+        jshintrc: '.jshintrc'
       }
     },
-
+    jscs: {
+      dev: {
+        src: ['<%= jshint.dev.src %>']
+      }
+    },
     simplemocha: {
       dev: {
-        src: ["test/**/*.js"]
+        src: ['./test/**/*.js']
       }
     },
-
     watch: {
-      configFiles: {
-        files: ['Gruntfile.js'],
-        options: {
-          reload: true,
-          event: ['changed']
-        }
-      },
-      scripts: {
-        files: ['*.js', 'models/**/*.js', 'test/**/*.js', 'routes/**/*.js', 'lib/**/*.js'],
-        tasks: ['test', 'simplemocha:dev'],
-        options: {
-          event: ['added', 'deleted', 'changed']
-        },
-      },
-    },
-
-    jscs: {
-      main: "server.js",
-      controllers: {
-        src: ["Gruntfile.js", "test/**/*.js"],
-        options: {
-          config: ".jscsrc"
-        }
+      app: {
+        files: ['<%= jshint.dev.src %>'],
+        tasks: ['jshint', 'jscs', 'simplemocha']
       }
     }
-  });
+  });//end grunt config
 
-  grunt.registerTask("test", ["jshint:dev", "jscs"]);
-  grunt.registerTask("mocha", ["simplemocha:dev"]);
-  grunt.registerTask("default", ["test", "mocha"]);
+  grunt.registerTask('test', ['jshint:dev', 'jscs:dev']);
+  grunt.registerTask('mocha', ['simplemocha:dev']);
+  grunt.registerTask('default', ['test', 'mocha', 'watch']);
 };
