@@ -46,10 +46,11 @@ module.exports = function(router) {
     newChallenge.location.latitude = req.body.latitude;
     newChallenge.location.longitude = req.body.longitude;
     newChallenge.location.altitude = req.body.altitude;
+    newChallenge.location.timestamp = req.body.timestamp;
     newChallenge.creator = req.body.creator;
-    newChallenge.timestamp = req.body.timestamp;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
+    // newChallenge.rating.allRatings = [];
 
     uploadPhoto(imageBuffer, function (fileLocation) {
       newChallenge.imageURL.push(fileLocation);
@@ -65,32 +66,41 @@ module.exports = function(router) {
   });
 
   // PATCH request to submit completed challenge
-  // to submit, just patch { submissionsMsg: 'submission message', eat:'token' }
   router.patch('/challenges/submit/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, challenge) {
-      var imageBuffer = new Buffer(req.body.image, 'base64');
       if(err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
+
+      var ratings = challenge.rating.allRatings;
+      (ratings).push(req.body.newRating);
+      (function average() {
+        var sum = 0;
+        for (var i = 0; i < ratings.length; i++) {
+          ratings[i] = new Number(ratings[i]);
+          sum = sum + ratings[i];
+        };
+        challenge.rating.averageRating = (sum / ratings.length);
+        return challenge.rating.averageRating;
+      })();
+
+      challenge.rating.newRating = req.body.newRating;
+      challenge.rating.averageRating = challenge.rating.averageRating.toFixed(2);
+
       challenge.submissionsMsg = req.body.submissionsMsg;
       challenge.submissionsCount = challenge.submissionsCount + 1;
-
       // CHANGE CREATOR INTO THE USER THAT SUBMITS THE CHALLENGE!!
       (challenge.submitters).push(challenge.creator);
-
-      uploadPhoto(imageBuffer, function (fileLocation) {
-        challenge.imageURL.push(fileLocation);
-        challenge.save(function(err) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({msg:'internal server error'});
-        }
-        res.json(challenge);
-        console.log('challenge ' + challenge.challengeName + ' completed!');
-        });
+      
+      challenge.save(function(err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg:'internal server error'});
+      }
+      res.json(challenge);
+      console.log('challenge ' + challenge.challengeName + ' completed!');
       });
-
     });
   });
 
