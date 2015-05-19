@@ -39,8 +39,8 @@ module.exports = function(router) {
     var newChallengeData = JSON.parse(JSON.stringify(req.body));
     var newChallenge = new Challenge(newChallengeData);
     newChallenge.imageURL = [];
-
     var imageBuffer = new Buffer(req.body.image, 'base64');
+
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
     newChallenge.location.latitude = req.body.latitude;
@@ -68,6 +68,7 @@ module.exports = function(router) {
   // to submit, just patch { submissionsMsg: 'submission message', eat:'token' }
   router.patch('/challenges/submit/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, challenge) {
+      var imageBuffer = new Buffer(req.body.image, 'base64');
       if(err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
@@ -77,15 +78,19 @@ module.exports = function(router) {
 
       // CHANGE CREATOR INTO THE USER THAT SUBMITS THE CHALLENGE!!
       (challenge.submitters).push(challenge.creator);
-      
-      challenge.save(function(err) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({msg:'internal server error'});
-      }
-      res.json(challenge);
-      console.log('challenge ' + challenge.challengeName + ' completed!');
+
+      uploadPhoto(imageBuffer, function (fileLocation) {
+        challenge.imageURL.push(fileLocation);
+        challenge.save(function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg:'internal server error'});
+        }
+        res.json(challenge);
+        console.log('challenge ' + challenge.challengeName + ' completed!');
+        });
       });
+
     });
   });
 
