@@ -82,7 +82,6 @@ module.exports = function(router) {
           sum = sum + ratings[i];
         };
         challenge.rating.averageRating = (sum / ratings.length);
-        console.log("inside  " + average);
         return challenge.rating.averageRating;
       })();
 
