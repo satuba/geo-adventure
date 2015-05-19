@@ -77,13 +77,13 @@ module.exports = function(router) {
 
       // CHANGE CREATOR INTO THE USER THAT SUBMITS THE CHALLENGE!!
       (challenge.submitters).push(challenge.creator);
-
-      res.json(challenge);
+      
       challenge.save(function(err) {
       if (err) {
         console.log(err);
         return res.status(500).json({msg:'internal server error'});
       }
+      res.json(challenge);
       console.log('challenge ' + challenge.challengeName + ' completed!');
       });
     });
