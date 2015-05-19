@@ -38,10 +38,10 @@ describe('User REST API test', function() {
       .get('/api/sign_in')
       .auth('claudiaTest@example.com', 'soccer15')
       .end(function(err, res) {
-        console.log(res.body);
         expect(err).to.eql(null);
         expect(res.body).to.have.property('token');
         done();
       });
   });
 });
+
