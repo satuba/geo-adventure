@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
   basic: {
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
-  }
+  },
+  completed: Array
 });
 
 userSchema.methods.generateHash = function(password, callback) {
