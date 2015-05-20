@@ -16,7 +16,7 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
+    newUser.generateHash(req.body.password, function(err, hash) {
         if(err) {
           console.log(err);
           //could not save password
