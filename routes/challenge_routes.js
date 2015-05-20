@@ -43,10 +43,10 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    // newChallenge.location.latitude = req.body.location.latitude;
-    // newChallenge.location.longitude = req.body.location.longitude;
-    // newChallenge.location.altitude = req.body.location.altitude;
-    // newChallenge.location.timestamp = req.body.location.timestamp;
+    newChallenge.location.latitude = req.body.location.latitude;
+    newChallenge.location.longitude = req.body.location.longitude;
+    newChallenge.location.altitude = req.body.location.altitude;
+    newChallenge.location.timestamp = req.body.location.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
@@ -108,27 +108,23 @@ module.exports = function(router) {
             imageUrl: fileLocation
           };
           (user.completed).push(submissionInfo);
-          // console.log(user.completed);
           challenge.imageURL = fileLocation;
-
-          // console.log("submissionInfo: nameOfChallenge: " + submissionInfo.nameOfChallenge + " imageURL: " + submissionInfo.imageUrl);
 
           user.save(function(err, data) {
             if (err) {
               console.log(err);
               return res.status(500).json({msg:'internal server error'});
             }
-            console.log(data);
             console.log("user saved");
           });
+          
           challenge.save(function(err, data) {
             if (err) {
               console.log(err);
               return res.status(500).json({msg:'internal server error'});
             }
-            console.log(data);
             console.log("challenge saved");
-            res.json("challenge and user updated! This means status code 200!");
+            res.json({msg:"challenge and user updated! This means status code 200!"});
           });
         });
       });
