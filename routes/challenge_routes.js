@@ -46,9 +46,9 @@ module.exports = function(router) {
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
     //newChallenge.location.latitude = req.body.location.latitude;
-    newChallenge.location.longitude = req.body.location.longitude;
-    newChallenge.location.altitude = req.body.location.altitude;
-    newChallenge.location.timestamp = req.body.location.timestamp;
+    //newChallenge.location.longitude = req.body.location.longitude;
+    //newChallenge.location.altitude = req.body.location.altitude;
+    //newChallenge.location.timestamp = req.body.location.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
