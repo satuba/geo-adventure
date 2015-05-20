@@ -9,10 +9,15 @@ var challengeSchema = mongoose.Schema({
   	latitude: Number,
   	longitude: Number,
   	altitude: Number,
-  	timestamp: String
+  	timestamp: Number
   },
   creator: String,
   imageURL: Array,
+  rating: {
+    newRating: Number,
+    allRatings: Array,
+    averageRating: Number
+  },
   submissionsMsg: String, // only for submitting a challenge, not for creation.
   submitters: Array,
   submissionsCount: Number

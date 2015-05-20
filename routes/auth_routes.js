@@ -4,7 +4,9 @@ var User = require('../models/User.js');
 var bodyparser = require('body-parser');
 
 module.exports = function(router, passport) {
-  router.use(bodyparser.json());
+  router.use(bodyparser.json({limit: '50mb'}));
+  router.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
+
 
   router.post('/create_user', function(req, res) {
     //add layer of protection
