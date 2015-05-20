@@ -81,9 +81,8 @@ module.exports = function(router) {
       (function average() {
         var sum = 0;
         for (var i = 0; i < ratings.length; i++) {
-          ratings[i] = new Number(ratings[i]);
-          sum = sum + ratings[i];
-        };
+          sum = sum + parseInt(ratings[i]);
+        }
         challenge.rating.averageRating = (sum / ratings.length);
         return challenge.rating.averageRating;
       })();
@@ -115,7 +114,7 @@ module.exports = function(router) {
               console.log(err);
               return res.status(500).json({msg:'internal server error'});
             }
-            console.log("user saved");
+            console.log('user saved');
           });
           
           challenge.save(function(err, data) {
@@ -123,7 +122,7 @@ module.exports = function(router) {
               console.log(err);
               return res.status(500).json({msg:'internal server error'});
             }
-            console.log("challenge saved");
+            console.log('challenge saved');
             res.json({image: challenge.imageURL});
           });
         });
