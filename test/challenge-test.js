@@ -70,6 +70,6 @@ describe('challenges', function() {
 		});
 	});
 
-	it("should ")
+	it('should ');
 
 });
