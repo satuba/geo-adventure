@@ -16,30 +16,30 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    newUser.generateHash(req.body.password, function(err, hash) {
+    newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
+      if(err) {
+        console.log(err);
+        //could not save password
+        return res.status(500).json({msg: 'no password'});
+      }
+
+      newUser.basic.password = hash;
+
+      newUser.save(function(err, user) {
         if(err) {
           console.log(err);
-          //could not save password
-          return res.status(500).json({msg: 'no password'});
+          var grabError = JSON.parse(JSON.stringify(err));
+          var cleanError = grabError.errmsg.substr(57, 15);
+          //could not create user
+          return res.status(500).json({msg: cleanError});
         }
 
-        newUser.basic.password = hash;
-
-        newUser.save(function(err, user) {
+        user.generateToken(process.env.APP_SECRET, function(err, token) {
           if(err) {
             console.log(err);
-            var grabError = JSON.parse(JSON.stringify(err));
-            var cleanError = grabError.errmsg.substr(57, 15);
-            //could not create user
-            return res.status(500).json({msg: cleanError});
+            //error generating token
+            return res.status(500).json({msg: 'no token'});
           }
-
-          user.generateToken(process.env.APP_SECRET, function(err, token) {
-            if(err) {
-              console.log(err);
-              //error generating token
-              return res.status(500).json({msg: 'no token'});
-            }
 
           res.json({token: token});
         });//end generateToken
