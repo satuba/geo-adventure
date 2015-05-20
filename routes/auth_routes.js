@@ -22,7 +22,7 @@ module.exports = function(router, passport) {
           //could not save password
           return res.status(500).json({msg: 'no password'});
         }
-      
+
         newUser.basic.password = hash;
 
         newUser.save(function(err, user) {
@@ -33,7 +33,7 @@ module.exports = function(router, passport) {
             //could not create user
             return res.status(500).json({msg: cleanError});
           }
-                          
+
           user.generateToken(process.env.APP_SECRET, function(err, token) {
             if(err) {
               console.log(err);
