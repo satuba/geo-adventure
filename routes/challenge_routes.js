@@ -39,7 +39,6 @@ module.exports = function(router) {
     var randomChallengeId = uuid.v1();
     var newChallengeData = JSON.parse(JSON.stringify(req.body));
     var newChallenge = new Challenge(newChallengeData);
-    newChallenge.imageURL = [];
     var imageBuffer = new Buffer(req.body.image, 'base64');
 
     newChallenge.challengeName = req.body.challengeName;
@@ -53,7 +52,7 @@ module.exports = function(router) {
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
 
     uploadPhoto(imageBuffer, function (fileLocation) {
-      newChallenge.imageURL.push(fileLocation);
+      newChallenge.imageURL = fileLocation;
       newChallenge.save(function(err, data) {
         if (err) {
           console.log(err);
