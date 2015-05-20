@@ -44,14 +44,13 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    newChallenge.location.latitude = req.body.latitude;
-    newChallenge.location.longitude = req.body.longitude;
-    newChallenge.location.altitude = req.body.altitude;
-    newChallenge.location.timestamp = req.body.timestamp;
+    newChallenge.location.latitude = req.body.location.latitude;
+    newChallenge.location.longitude = req.body.location.longitude;
+    newChallenge.location.altitude = req.body.location.altitude;
+    newChallenge.location.timestamp = req.body.location.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
-    // newChallenge.rating.allRatings = [];
 
     uploadPhoto(imageBuffer, function (fileLocation) {
       newChallenge.imageURL.push(fileLocation);
@@ -63,7 +62,6 @@ module.exports = function(router) {
         res.json(data);
       });
     });
-
   });
 
   // PATCH request to submit completed challenge
