@@ -23,7 +23,7 @@ require('./routes/image_routes')(imageRoutes);
 
 app.use('/api', challengeRoutes);
 app.use('/api', userRoutes);
-app.use('/api', imageRoutes);
+app.use('/', imageRoutes);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('server running on port: ' + (process.env.PORT || 3000));
