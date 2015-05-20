@@ -9,7 +9,7 @@ var challengeSchema = mongoose.Schema({
   	latitude: Number,
   	longitude: Number,
   	altitude: Number,
-  	timestamp: String
+  	timestamp: Number
   },
   creator: String,
   imageURL: Array,
