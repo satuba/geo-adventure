@@ -91,7 +91,7 @@ module.exports = function(router) {
       challenge.submissionsCount = challenge.submissionsCount + 1;
       // CHANGE CREATOR INTO THE USER THAT SUBMITS THE CHALLENGE!!
       (challenge.submitters).push(challenge.creator);
-      
+
       challenge.save(function(err) {
       if (err) {
         console.log(err);
