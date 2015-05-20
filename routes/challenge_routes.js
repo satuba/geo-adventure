@@ -39,6 +39,8 @@ module.exports = function(router) {
     var randomChallengeId = uuid.v1();
     var newChallengeData = JSON.parse(JSON.stringify(req.body));
     var newChallenge = new Challenge(newChallengeData);
+    //CLAUDIA ADD
+    console.log('req.body.image ' + req.body.image);
     var imageBuffer = new Buffer(req.body.image, 'base64');
 
     newChallenge.challengeName = req.body.challengeName;
@@ -58,6 +60,8 @@ module.exports = function(router) {
           console.log(err);
           return res.status(500).json({msg:'internal server error'});
         }
+        //CLAUDIA ADD
+        console.log('data from challenge_route ' + data);
         res.json(data);
       });
     });
