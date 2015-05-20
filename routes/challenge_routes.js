@@ -51,7 +51,8 @@ module.exports = function(router) {
     //newChallenge.location.timestamp = req.body.location.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
-    console.log('challengeId for this challenge: ' + newChallenge.challengeId);
+    //console.log('challengeId for this challenge: ' + newChallenge.challengeId);
+    console.log(imageBuffer);
 
     uploadPhoto(imageBuffer, function (fileLocation) {
       newChallenge.imageURL = fileLocation;

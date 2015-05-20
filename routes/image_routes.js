@@ -8,12 +8,12 @@ var fs = require('fs');
 module.exports = function (router) {
   router.use(bodyparser.json());
 
-  router.get('/image/:image', function (req, res) {
+  router.get('/img/:image', function (req, res) {
     fs.readFile('./img/' + req.params.image, function (err, data) {
       console.log(req.params.image);
       console.log('********DATA********* ' + data);
-      res.status(200).write(data);
-      //res.end();
+      res.write(data);
+      res.end();
     });
   });
 };
