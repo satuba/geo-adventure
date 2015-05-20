@@ -12,7 +12,7 @@ module.exports = function (router) {
     fs.readFile('./img/' + req.params.image, function (err, data) {
       console.log(req.params.image);
       console.log('********DATA********* ' + data);
-      res.status(200).send(data);
+      res.status(200).write(data);
       //res.end();
     });
   });
