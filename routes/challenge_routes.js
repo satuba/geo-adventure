@@ -43,10 +43,10 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    newChallenge.location.latitude = req.body.location.latitude;
-    newChallenge.location.longitude = req.body.location.longitude;
-    newChallenge.location.altitude = req.body.location.altitude;
-    newChallenge.location.timestamp = req.body.location.timestamp;
+    // newChallenge.location.latitude = req.body.location.latitude;
+    // newChallenge.location.longitude = req.body.location.longitude;
+    // newChallenge.location.altitude = req.body.location.altitude;
+    // newChallenge.location.timestamp = req.body.location.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
@@ -70,9 +70,14 @@ module.exports = function(router) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
+      var ratingIsNew = req.body.newRating;
+      var newSubmissionMsg = req.body.submissionsMsg;
+      var username = req.body.username;
+      var imageBuffer = new Buffer(req.body.image, 'base64');
 
+        // update rating info
       var ratings = challenge.rating.allRatings;
-      (ratings).push(req.body.newRating);
+      (ratings).push(ratingIsNew);
       (function average() {
         var sum = 0;
         for (var i = 0; i < ratings.length; i++) {
@@ -82,22 +87,50 @@ module.exports = function(router) {
         challenge.rating.averageRating = (sum / ratings.length);
         return challenge.rating.averageRating;
       })();
-
-      challenge.rating.newRating = req.body.newRating;
+      challenge.rating.newRating = ratingIsNew;
       challenge.rating.averageRating = challenge.rating.averageRating.toFixed(2);
 
-      challenge.submissionsMsg = req.body.submissionsMsg;
+      //update submission info
+      challenge.submissionsMsg = newSubmissionMsg;
       challenge.submissionsCount = challenge.submissionsCount + 1;
-      // CHANGE CREATOR INTO THE USER THAT SUBMITS THE CHALLENGE!!
-      (challenge.submitters).push(challenge.creator);
+      (challenge.submitters).push(username);
 
-      challenge.save(function(err) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({msg:'internal server error'});
-      }
-      res.json(challenge);
-      console.log('challenge ' + challenge.challengeName + ' completed!');
+      User.findOne({'username': username}, function(req, user) {
+        if(err) {
+          console.log(err);
+          return res.status(500).json({msg: 'internal server error'});
+        }
+
+        // create image url
+        uploadPhoto(imageBuffer, function (fileLocation) {
+          var submissionInfo = {
+            nameOfChallenge: challenge.challengeName,
+            imageUrl: fileLocation
+          };
+          (user.completed).push(submissionInfo);
+          // console.log(user.completed);
+          challenge.imageURL = fileLocation;
+
+          // console.log("submissionInfo: nameOfChallenge: " + submissionInfo.nameOfChallenge + " imageURL: " + submissionInfo.imageUrl);
+
+          user.save(function(err, data) {
+            if (err) {
+              console.log(err);
+              return res.status(500).json({msg:'internal server error'});
+            }
+            console.log(data);
+            console.log("user saved");
+          });
+          challenge.save(function(err, data) {
+            if (err) {
+              console.log(err);
+              return res.status(500).json({msg:'internal server error'});
+            }
+            console.log(data);
+            console.log("challenge saved");
+            res.json("challenge and user updated! This means status code 200!");
+          });
+        });
       });
     });
   });
