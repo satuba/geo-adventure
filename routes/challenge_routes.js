@@ -124,7 +124,7 @@ module.exports = function(router) {
               return res.status(500).json({msg:'internal server error'});
             }
             console.log("challenge saved");
-            res.json({msg:"challenge and user updated! This means status code 200!"});
+            res.json({image: challenge.imageURL});
           });
         });
       });
