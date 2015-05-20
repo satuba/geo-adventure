@@ -16,35 +16,35 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    newUser.generateHash(req.body.password, function(err, hash) {
-        if(err) {
-          console.log(err);
-          //could not save password
-          return res.status(500).json({msg: 'no password'});
-        }
-
-        newUser.basic.password = hash;
-    });//end generateHash
-
-    newUser.save(function(err, user) {
+    newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
         console.log(err);
-        var grabError = JSON.parse(JSON.stringify(err));
-        var cleanError = grabError.errmsg.substr(57, 15);
-        //could not create user
-        return res.status(500).json({msg: cleanError});
+        //could not save password
+        return res.status(500).json({msg: 'no password'});
       }
 
-      user.generateToken(process.env.APP_SECRET, function(err, token) {
+      newUser.basic.password = hash;
+
+      newUser.save(function(err, user) {
         if(err) {
           console.log(err);
-          //error generating token
-          return res.status(500).json({msg: 'no token'});
+          var grabError = JSON.parse(JSON.stringify(err));
+          var cleanError = grabError.errmsg.substr(57, 15);
+          //could not create user
+          return res.status(500).json({msg: cleanError});
         }
 
-        res.json({token: token});
-      });//end generateToken
-    });//end save
+        user.generateToken(process.env.APP_SECRET, function(err, token) {
+          if(err) {
+            console.log(err);
+            //error generating token
+            return res.status(500).json({msg: 'no token'});
+          }
+
+          res.json({token: token});
+        });//end generateToken
+      });//end save
+    });//end generateHash
   });//end POST method
 
   router.get('/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
