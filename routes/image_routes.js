@@ -10,7 +10,7 @@ module.exports = function (router) {
 
   router.get('/image/:image', function (req, res) {
     fs.readFile('./img/' + req.params.image + '.jpg', function (err, data) {
-      console.log(data);
+      console.log(req.body);
       res.write(data);
       res.end();
     });
