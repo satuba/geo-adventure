@@ -12,7 +12,7 @@ var challengeSchema = mongoose.Schema({
   	timestamp: Number
   },
   creator: String,
-  imageURL: Array,
+  imageURL: String,
   rating: {
     newRating: Number,
     allRatings: Array,
