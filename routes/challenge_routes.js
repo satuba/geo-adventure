@@ -45,7 +45,7 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    newChallenge.location.latitude = req.body.location.latitude;
+    //newChallenge.location.latitude = req.body.location.latitude;
     newChallenge.location.longitude = req.body.location.longitude;
     newChallenge.location.altitude = req.body.location.altitude;
     newChallenge.location.timestamp = req.body.location.timestamp;
