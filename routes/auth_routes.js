@@ -16,7 +16,7 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    newUser.generateHash(req.body.password, function(err, hash) {
+    generateHash(req.body.password, function(err, hash) {
         if(err) {
           console.log(err);
           //could not save password
@@ -24,27 +24,27 @@ module.exports = function(router, passport) {
         }
 
         newUser.basic.password = hash;
-
-        newUser.save(function(err, user) {
-          if(err) {
-            console.log(err);
-            var grabError = JSON.parse(JSON.stringify(err));
-            var cleanError = grabError.errmsg.substr(57, 15);
-            //could not create user
-            return res.status(500).json({msg: cleanError});
-          }
-
-          user.generateToken(process.env.APP_SECRET, function(err, token) {
-            if(err) {
-              console.log(err);
-              //error generating token
-              return res.status(500).json({msg: 'no token'});
-            }
-
-          res.json({token: token});
-        });//end generateToken
-      });//end save
     });//end generateHash
+
+    newUser.save(function(err, user) {
+      if(err) {
+        console.log(err);
+        var grabError = JSON.parse(JSON.stringify(err));
+        var cleanError = grabError.errmsg.substr(57, 15);
+        //could not create user
+        return res.status(500).json({msg: cleanError});
+      }
+
+      user.generateToken(process.env.APP_SECRET, function(err, token) {
+        if(err) {
+          console.log(err);
+          //error generating token
+          return res.status(500).json({msg: 'no token'});
+        }
+
+        res.json({token: token});
+      });//end generateToken
+    });//end save
   });//end POST method
 
   router.get('/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
