@@ -6,21 +6,8 @@ require('../server.js');
 var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
-var eat = require('eat');
-var bcypt = require('bcrypt-nodejs');
 var expect = chai.expect;
 chai.use(chaihttp);
-
-var Challenge = require('../models/Challenge');
-var User = require('../models/User');
-var uploadPhoto = require('../lib/uploadPhoto');
-var Challenge = require('../models/Challenge');
-var bodyparser = require('body-parser');
-var uuid = require('node-uuid');
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
-var auth = require('../routes/auth_routes');
-var User = require('../models/User');
-var uploadPhoto = require('../lib/uploadPhoto');
 
 describe('challenges', function() {
   var tokenOfTokens;
@@ -52,17 +39,17 @@ describe('challenges', function() {
     .send({
       challengeName:'nice challenge', 
       creator:'newtest', 
-      image: "image", 
+      image: 'image', 
       eat: tokenOfTokens})
     .end(function(err, res) {
       id = res.body.challengeId;
-      console.log("id: " + id);
+      console.log('id: ' + id);
       expect(err).to.eql(null);
       expect(res.status).to.eql(200);
       expect(res.body).to.be.an('object');
-      expect(res.body.imageURL).to.exist;
-      expect(res.body.challengeId).to.exist;
-      expect(res.body.submitters).to.be.empty;
+      expect(res.body.imageURL).to.exist;// jshint ignore:line
+      expect(res.body.challengeId).to.exist;// jshint ignore:line
+      expect(res.body.submitters).to.be.empty;// jshint ignore:line
       expect(res.body.challengeName).to.eql('nice challenge');
       done();
     });
@@ -94,7 +81,7 @@ describe('challenges', function() {
     });
   });
 
-  it("should update existing donut", function(done) {
+  it('should update existing donut', function(done) {
     chai.request('localhost:3000')
     .patch('/api/challenges/submit/' + id)
     .send({
