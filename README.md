@@ -1,4 +1,4 @@
-#GEO-ADVENTURE
+#GeoAdventure
 
 This is a RESTful API that accepts requests and generates responses in JSON data to create geo challenges and complete existing challenges. It utilizes [Encrypted Authentication Tokens](https://github.com/toastynerd/eat).
 
