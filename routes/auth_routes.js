@@ -17,12 +17,12 @@ module.exports = function(router, passport) {
 
     var newUser = new User(newUserData);
 
-    if (!validator.isEmail(req.body.email)) {
-      return res.status(417).json({msg: 'invalid email'});
-    }
-
     if (validator.isNull(req.body.email)) {
       return res.status(417).json({msg: 'email is required'});
+    }
+
+    if (!validator.isEmail(req.body.email)) {
+      return res.status(417).json({msg: 'invalid email'});
     }
 
     if (validator.isNull(req.body.username)) {
