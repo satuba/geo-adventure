@@ -2,6 +2,12 @@
 
 This is a RESTful API that accepts requests and generates responses in JSON data to create geo challenges and complete existing challenges. It utilizes [Encrypted Authentication Tokens](https://github.com/toastynerd/eat).
 
+This API utilizes mongoDB for the database. To use the API, clone this repo and run:
+
+```
+npm install
+```
+
 ###Example for creating a new user with superagent:
 
 ```
