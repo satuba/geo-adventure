@@ -16,7 +16,7 @@ loc: {
   altitude: 83736, 
   timestamp: 3736, 
 },
-eat: 'token'
+eat: (token goes here)
 }
 ```
 
@@ -59,7 +59,8 @@ newRating: 5,
 submissionsMsg: 'hey yah', 
 username: 'user', 
 image: 'image string', 
-eat: 'ffUbq7HG182rOAdnvYGiy4q7ZGZW0t8GEhSCqzetXOfv'}
+eat: (token goes here) 
+}
 ```
 
 All of the above are required parameters!
