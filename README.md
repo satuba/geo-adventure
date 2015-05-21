@@ -1,4 +1,4 @@
-geo-adventure
+GEO-ADVENTURE
 
 This is an iOS app that will allow users to create geo challenges and complete existing challenges. 
 
@@ -60,55 +60,55 @@ You'll get this as a response:
 Challenge will look like this in the database after submissions:
 
 {
-	'_id' : ObjectId('555d6a6c9dcb17e4951277a5'),
-	'imageURL' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg',
-	'submissionsCount' : 2,
-	'challengeId' : 'aeb71530-ff78-11e4-be6d-51b759bfdd0b',
-	'challengeName' : 'cool challenge name',
-	'creator' : 'user',
-	'submitters' : [
-		'user',
-		'user'
-	],
-	'rating' : {
-		'allRatings' : [
-			'3',
-			'5'
-		],
-		'averageRating' : 4,
-		'newRating' : 5
-	},
-	'loc' : {
-		'timestamp' : 3736,
-		'altitude' : 83736,
-		'longitude' : 43536,
-		'latitude' : 34534
-	},
-	'__v' : 2,
-	'submissionsMsg' : 'hey yah'
+  '_id' : ObjectId('555d6a6c9dcb17e4951277a5'),
+  'imageURL' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg',
+  'submissionsCount' : 2,
+  'challengeId' : 'aeb71530-ff78-11e4-be6d-51b759bfdd0b',
+  'challengeName' : 'cool challenge name',
+  'creator' : 'user',
+  'submitters' : [
+    'user',
+    'user'
+  ],
+  'rating' : {
+    'allRatings' : [
+      '3',
+      '5'
+    ],
+    'averageRating' : 4,
+    'newRating' : 5
+  },
+  'loc' : {
+    'timestamp' : 3736,
+    'altitude' : 83736,
+    'longitude' : 43536,
+    'latitude' : 34534
+  },
+  '__v' : 2,
+  'submissionsMsg' : 'hey yah'
 }
 
 
 User will look like this in the database:
 
 {
-	'_id' : ObjectId('555d5af0616b84809405a4da'),
-	'username' : 'user',
-	'completed' : [
-		{
-			'nameOfChallenge' : 'cool challenge name',
-			'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
-		},
-		{
-			'nameOfChallenge' : 'cool challenge name',
-			'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
-		}
-	],
-	'basic' : {
-		'password' : '$2a$08$9mf6OneLGZP3LCzp9HBSEOMtzQ4V2IdiaucF4co65YbIFQ8bo8ppm',
-		'email' : 'user@example.com'
-	},
-	'__v' : 2
+  '_id' : ObjectId('555d5af0616b84809405a4da'),
+  'username' : 'user',
+  'completed' : [
+    {
+      'nameOfChallenge' : 'cool challenge name',
+      'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
+    },
+    {
+      'nameOfChallenge' : 'cool challenge name',
+      'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
+    }
+  ],
+  'basic' : {
+    'password' : '$2a$08$9mf6OneLGZP3LCzp9HBSEOMtzQ4V2IdiaucF4co65YbIFQ8bo8ppm',
+    'email' : 'user@example.com'
+  },
+  '__v' : 2
 }
 
 
