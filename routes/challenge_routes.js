@@ -116,7 +116,6 @@ module.exports = function(router) {
             }
             console.log('user saved');
           });
-
           challenge.save(function(err, data) {
             if (err) {
               console.log(err);
