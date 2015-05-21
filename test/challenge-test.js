@@ -40,6 +40,12 @@ describe('challenges', function() {
       challengeName:'nice challenge', 
       creator:'newtest', 
       image: 'image', 
+      loc: {
+        latitude:34534, 
+        longitude:43536,
+        altitude:83736, 
+        timestamp:3736
+      },
       eat: tokenOfTokens})
     .end(function(err, res) {
       id = res.body.challengeId;

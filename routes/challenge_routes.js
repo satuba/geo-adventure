@@ -43,10 +43,10 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    newChallenge.location.latitude = req.body.location.latitude;
-    newChallenge.location.longitude = req.body.location.longitude;
-    newChallenge.location.altitude = req.body.location.altitude;
-    newChallenge.location.timestamp = req.body.location.timestamp;
+    newChallenge.loc.latitude = req.body.loc.latitude;
+    newChallenge.loc.longitude = req.body.loc.longitude;
+    newChallenge.loc.altitude = req.body.loc.altitude;
+    newChallenge.loc.timestamp = req.body.loc.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
