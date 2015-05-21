@@ -21,6 +21,10 @@ module.exports = function(router, passport) {
       return res.status(417).json({msg: 'invalid email'});
     }
 
+    if (newUser.username == null) {
+      return res.status(417).json({msg: 'username is required'});
+    }
+
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
