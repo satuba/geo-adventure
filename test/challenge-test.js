@@ -1,56 +1,30 @@
 'use strict';
 
+process.env.MONGOLAB_URI = 'mongodb://localhost/user_test';
+require('../server.js');
+
 var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
-var eat = require('eat');
-var bcypt = require('bcrypt-nodejs');
 var expect = chai.expect;
 chai.use(chaihttp);
 
-var Challenge = require('../models/Challenge');
-var User = require('../models/User');
-
-process.env.MONGOLAB_URI = 'mongodb://localhost/test';
-require('../server');
-
 describe('challenges', function() {
-	var tokenOfTokens;
+  var tokenOfTokens;
+  var id;
 
-	before(function(done) {
-    var challengeTest = new Challenge({challengeName: 'super mega challenge', 
-    	latitude: 2.2424, longitude: 9.338, creator: 'Salazar', 
-    	imageURL: 'https://image.url'});
-    challengeTest.save(function(err, data) {
-      if(err) { console.log(err); }
-      this.challengeTest = data;
-      done();
-    }.bind(this));
-
-    var userTest = new User({'username': 'mangosteeny', 'basic.email': 'mangosteeny@example.com', 'basic.password': 'lovelypassword'});
-  	userTest.basic.password = userTest.generateHash(userTest.basic.password, function(err, hash) {
-  		if (err) {
-  			console.log(err);
-  		}
-  		userTest.basic.password = hash;
-  		userTest.save(function(err, user) {
-  			if (err) {
-  				console.log(err);
-  			}
-  			console.log('user: ' + user);
-  			user.generateToken(process.env.APP_SECRET, function(err, token) {
-  				if(err) {
-  					console.log(err);
-  				}
-  				tokenOfTokens = token;
-  			});
-  		});
-  	});
-  });
-
-  it('should be able to make a note in a beforeEach block', function() {
-    expect(this.challengeTest.challengeName).to.eql('super mega challenge');
-    expect(this.challengeTest).to.have.property('_id');
+  before(function(done) {
+    chai.request('localhost:3000')
+      .post('/api/create_user')
+      .send({
+        username: 'newtest', 
+        email: 'newtest@example.com', 
+        password: 'foobar123'
+      })
+      .end(function(err, res) {
+        tokenOfTokens = res.body.token;
+        done();
+      });
   });
 
   after(function(done) {
@@ -59,17 +33,70 @@ describe('challenges', function() {
     });
   });
 
-	it('should get all challenges', function(done) {
-		chai.request('localhost:3000')
-		.get('/api/challenges')
-		.send({ eat: + tokenOfTokens })
-		.end(function(err, res) {
-			expect(err).to.eql(null);
-			expect(typeof res.body).to.eql('object');
-			done();
-		});
-	});
+  it('should post', function(done) {
+    chai.request('localhost:3000')
+    .post('/api/challenges/newchallenge')
+    .send({
+      challengeName:'nice challenge', 
+      creator:'newtest', 
+      image: 'image', 
+      eat: tokenOfTokens})
+    .end(function(err, res) {
+      id = res.body.challengeId;
+      console.log('id: ' + id);
+      expect(err).to.eql(null);
+      expect(res.status).to.eql(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body.imageURL).to.exist;// jshint ignore:line
+      expect(res.body.challengeId).to.exist;// jshint ignore:line
+      expect(res.body.submitters).to.be.empty;// jshint ignore:line
+      expect(res.body.challengeName).to.eql('nice challenge');
+      done();
+    });
+  });
 
-	it("should ")
+  it('should get all challenges', function(done) {
+    chai.request('localhost:3000')
+    .get('/api/challenges')
+    .send({ eat: tokenOfTokens })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.status).to.eql(200);
+      expect(typeof res.body).to.eql('object');
+      expect(Array.isArray(res.body)).to.eql(true);
+      done();
+    });
+  });
+
+  it('should get challenge by id', function(done) {
+    chai.request('localhost:3000')
+    .get('/api/challenges/' + id)
+    .send({ eat: tokenOfTokens })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.status).to.eql(200);
+      expect(typeof res.body).to.eql('object');
+      expect(res.body.challengeName).to.eql('nice challenge');
+      done();
+    });
+  });
+
+  it('should update existing donut', function(done) {
+    chai.request('localhost:3000')
+    .patch('/api/challenges/submit/' + id)
+    .send({
+      newRating: 3, 
+      submissionsMsg: 'awesomeee',
+      username: 'newtest', 
+      image: 'image string', 
+      eat: tokenOfTokens
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.status).to.eql(200);
+      expect(res.body).to.have.property('imageURL');
+      done();
+    });
+  });
 
 });
