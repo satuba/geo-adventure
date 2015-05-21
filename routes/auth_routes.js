@@ -2,6 +2,7 @@
 
 var User = require('../models/User.js');
 var bodyparser = require('body-parser');
+var validator = require('validator');
 
 module.exports = function(router, passport) {
   router.use(bodyparser.json({limit: '50mb'}));
@@ -15,6 +16,11 @@ module.exports = function(router, passport) {
     delete newUserData.password;
 
     var newUser = new User(newUserData);
+
+    if (!validator.isEmail(req.body.email)) {
+      return res.status(417).json({msg: 'invalid email'});
+    }
+
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
