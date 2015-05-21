@@ -23,7 +23,7 @@ userSchema.methods.generateHash = function(password, callback) {
       if(err) {
         return console.log(err);
       }
-      
+
       callback(null, hash);
     });
   });

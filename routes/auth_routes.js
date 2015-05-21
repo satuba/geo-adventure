@@ -2,6 +2,7 @@
 
 var User = require('../models/User.js');
 var bodyparser = require('body-parser');
+var validator = require('validator');
 
 module.exports = function(router, passport) {
   router.use(bodyparser.json({limit: '50mb'}));
@@ -15,6 +16,19 @@ module.exports = function(router, passport) {
     delete newUserData.password;
 
     var newUser = new User(newUserData);
+
+    if (validator.isNull(req.body.email)) {
+      return res.status(417).json({msg: 'email is required'});
+    }
+
+    if (!validator.isEmail(req.body.email)) {
+      return res.status(417).json({msg: 'invalid email'});
+    }
+
+    if (validator.isNull(req.body.username)) {
+      return res.status(417).json({msg: 'username is required'});
+    }
+
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
@@ -27,7 +41,7 @@ module.exports = function(router, passport) {
 
       newUser.save(function(err, user) {
         if(err) {
-          //console.log(err);
+          console.log(err);
           var grabError = JSON.parse(JSON.stringify(err));
           var cleanError = grabError.errmsg.substr(57, 15);
           //could not create user

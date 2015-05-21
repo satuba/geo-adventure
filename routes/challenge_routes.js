@@ -27,7 +27,7 @@ module.exports = function(router) {
   router.get('/challenges/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, data) {
       if(err) {
-        //console.log(err);
+        console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
       res.json(data);
@@ -43,10 +43,10 @@ module.exports = function(router) {
 
     newChallenge.challengeName = req.body.challengeName;
     newChallenge.challengeId = randomChallengeId;
-    newChallenge.loc.latitude = req.body.latitude;
-    newChallenge.loc.longitude = req.body.longitude;
-    newChallenge.loc.altitude = req.body.altitude;
-    newChallenge.loc.timestamp = req.body.timestamp;
+    newChallenge.loc.latitude = req.body.loc.latitude;
+    newChallenge.loc.longitude = req.body.loc.longitude;
+    newChallenge.loc.altitude = req.body.loc.altitude;
+    newChallenge.loc.timestamp = req.body.loc.timestamp;
     newChallenge.creator = req.body.creator;
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
@@ -116,7 +116,6 @@ module.exports = function(router) {
             }
             console.log('user saved');
           });
-          
           challenge.save(function(err, data) {
             if (err) {
               console.log(err);
