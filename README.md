@@ -34,7 +34,7 @@ eat: token (string)
 
 ```
 { __v: 0,
-  imageURL: 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg',
+  imageURL: 'https://exampleurl.com/img/challenge2.jpg',
   submissionsCount: 0,
   challengeId: '32c3e0d0-ff72-11e4-b03e-1dbef7cb539a',
   challengeName: 'cool challenge name',
@@ -68,7 +68,7 @@ All of the above are required parameters!
 You'll get this as a response:
 
 ```
-{ imageURL: 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg' }
+{ imageURL: 'https://exampleurl.com/img/challenge2.jpg' }
 ```
 
 
@@ -97,8 +97,8 @@ You'll get this as a response:
   'loc' : {
     'timestamp' : 3736,
     'altitude' : 83736,
-    'longitude' : 43536,
-    'latitude' : 34534
+    'longitude' : 122.331,
+    'latitude' : 47.6097
   },
   '__v' : 2,
   'submissionsMsg' : 'hey yah'
@@ -114,11 +114,11 @@ You'll get this as a response:
   'completed' : [
     {
       'nameOfChallenge' : 'cool challenge name',
-      'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
+      'imageUrl' : 'https://exampleurl.com/img/challenge2.jpg'
     },
     {
       'nameOfChallenge' : 'cool challenge name',
-      'imageUrl' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg'
+      'imageUrl' : 'https://exampleurl.com/img/challenge2.jpg'
     }
   ],
   'basic' : {
