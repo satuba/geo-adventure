@@ -34,7 +34,7 @@ module.exports = function(router, passport) {
       if(err) {
         console.log(err);
         //could not save password
-        res.status(500).json({msg: 'no password'});
+        return res.status(500).json({msg: 'no password'});
       }
 
       newUser.basic.password = hash;
@@ -65,7 +65,7 @@ module.exports = function(router, passport) {
     req.user.generateToken(process.env.APP_SECRET, function(err, token) {
       if(err) {
         console.log(err);
-        res.status(500).json({msg: 'error generating token'});
+        return res.status(500).json({msg: 'error generating token'});
       }
 
       res.json({token: token});
