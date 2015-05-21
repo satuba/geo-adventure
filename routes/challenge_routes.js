@@ -17,7 +17,7 @@ module.exports = function(router) {
     Challenge.find({}, function(err, data) {
       if (err) {
         console.log(err);
-        return res.status(500).json({msg: 'internal server error'});
+        res.status(500).json({msg: 'internal server error'});
       }
       res.json(data);
     });
@@ -28,7 +28,7 @@ module.exports = function(router) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, data) {
       if(err) {
         console.log(err);
-        return res.status(500).json({msg: 'internal server error'});
+        res.status(500).json({msg: 'internal server error'});
       }
       res.json(data);
     });
@@ -56,7 +56,7 @@ module.exports = function(router) {
       newChallenge.save(function(err, data) {
         if (err) {
           console.log(err);
-          return res.status(500).json({msg:'internal server error'});
+          res.status(500).json({msg:'internal server error'});
         }
         res.json(data);
       });
@@ -68,7 +68,7 @@ module.exports = function(router) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, challenge) {
       if(err) {
         console.log(err);
-        return res.status(500).json({msg: 'internal server error'});
+        res.status(500).json({msg: 'internal server error'});
       }
       var ratingIsNew = req.body.newRating;
       var newSubmissionMsg = req.body.submissionsMsg;
@@ -81,9 +81,8 @@ module.exports = function(router) {
       (function average() {
         var sum = 0;
         for (var i = 0; i < ratings.length; i++) {
-          ratings[i] = new Number(ratings[i]);
-          sum = sum + ratings[i];
-        };
+          sum = sum + parseInt(ratings[i]);
+        }
         challenge.rating.averageRating = (sum / ratings.length);
         return challenge.rating.averageRating;
       })();
@@ -98,7 +97,7 @@ module.exports = function(router) {
       User.findOne({'username': username}, function(req, user) {
         if(err) {
           console.log(err);
-          return res.status(500).json({msg: 'internal server error'});
+          res.status(500).json({msg: 'internal server error'});
         }
 
         // create image url
@@ -113,18 +112,18 @@ module.exports = function(router) {
           user.save(function(err, data) {
             if (err) {
               console.log(err);
-              return res.status(500).json({msg:'internal server error'});
+              res.status(500).json({msg:'internal server error'});
             }
-            console.log("user saved");
+            console.log('user saved');
           });
           
           challenge.save(function(err, data) {
             if (err) {
               console.log(err);
-              return res.status(500).json({msg:'internal server error'});
+              res.status(500).json({msg:'internal server error'});
             }
-            console.log("challenge saved");
-            res.json({image: challenge.imageURL});
+            console.log('challenge saved');
+            res.json({imageURL: challenge.imageURL});
           });
         });
       });
