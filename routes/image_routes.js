@@ -1,11 +1,9 @@
 'use strict';
 
 var bodyparser = require('body-parser');
-//var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
-//var auth = require('../lib/eat_auth');
 var fs = require('fs');
 
-module.exports = function (router) {
+module.exports = function(router) {
   router.use(bodyparser.json());
 
   router.get('/img/:image', function(req, res) {
@@ -13,6 +11,7 @@ module.exports = function (router) {
  			if(err) {
  				return console.log(err);
  			}
+
       res.write(data);
       res.end();
     });

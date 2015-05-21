@@ -86,6 +86,7 @@ module.exports = function(router) {
         challenge.rating.averageRating = (sum / ratings.length);
         return challenge.rating.averageRating;
       })();
+      
       challenge.rating.newRating = ratingIsNew;
       challenge.rating.averageRating = challenge.rating.averageRating.toFixed(2);
 
