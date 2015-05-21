@@ -9,11 +9,13 @@ This is a RESTful API that accepts requests and generates responses in JSON data
 superagent localhost:3000/api/challenges/newchallenge post {
 challengeName:'cool challenge name', 
 creator: 'user', 
-image: 'imagestring', 
-latitude: 47.6097, 
-longitude: 122.331, 
-altitude: 83736, 
-timestamp: 3736, 
+image: 'imagestring',
+loc: {
+  latitude: 47.6097, 
+  longitude: 122.331, 
+  altitude: 83736, 
+  timestamp: 3736, 
+},
 eat: 'token'
 }
 ```
