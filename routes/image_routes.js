@@ -11,7 +11,7 @@ module.exports = function (router) {
   router.get('/img/:image', function (req, res) {
     fs.readFile('./img/' + req.params.image, function (err, data) {
  			if(err) {
- 				console.log(err);
+ 				return console.log(err);
  			}
       res.write(data);
       res.end();
