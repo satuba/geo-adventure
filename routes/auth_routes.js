@@ -2,6 +2,7 @@
 
 var User = require('../models/User.js');
 var bodyparser = require('body-parser');
+var validator = require('validator');
 
 module.exports = function(router, passport) {
   router.use(bodyparser.json({limit: '50mb'}));
@@ -15,12 +16,25 @@ module.exports = function(router, passport) {
     delete newUserData.password;
 
     var newUser = new User(newUserData);
+
+    if (validator.isNull(req.body.email)) {
+      return res.status(417).json({msg: 'email is required'});
+    }
+
+    if (!validator.isEmail(req.body.email)) {
+      return res.status(417).json({msg: 'invalid email'});
+    }
+
+    if (validator.isNull(req.body.username)) {
+      return res.status(417).json({msg: 'username is required'});
+    }
+
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
         console.log(err);
         //could not save password
-        res.status(500).json({msg: 'no password'});
+        return res.status(500).json({msg: 'no password'});
       }
 
       newUser.basic.password = hash;
@@ -31,14 +45,14 @@ module.exports = function(router, passport) {
           var grabError = JSON.parse(JSON.stringify(err));
           var cleanError = grabError.errmsg.substr(57, 15);
           //could not create user
-          res.status(500).json({msg: cleanError});
+          return res.status(500).json({msg: cleanError});
         }
 
         user.generateToken(process.env.APP_SECRET, function(err, token) {
           if(err) {
             console.log(err);
             //error generating token
-            res.status(500).json({msg: 'no token'});
+            return res.status(500).json({msg: 'no token'});
           }
 
           res.json({token: token});
@@ -51,7 +65,7 @@ module.exports = function(router, passport) {
     req.user.generateToken(process.env.APP_SECRET, function(err, token) {
       if(err) {
         console.log(err);
-        res.status(500).json({msg: 'error generating token'});
+        return res.status(500).json({msg: 'error generating token'});
       }
 
       res.json({token: token});

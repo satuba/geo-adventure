@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var challengeSchema = mongoose.Schema({
   challengeName: { type: String, required: true},
   challengeId: String,
-  location: {
+  loc: {
   	latitude: Number,
   	longitude: Number,
   	altitude: Number,
