@@ -1,26 +1,31 @@
 #GEO-ADVENTURE
 
-This is an iOS app that will allow users to create geo challenges and complete existing challenges. 
+This is a RESTful API that accepts requests and generates responses in JSON data to create geo challenges and complete existing challenges. It utilizes [Encrypted Authentication Tokens](https://github.com/toastynerd/eat).
 
 
 ###Example for creating a new challenge with superagent: 
 
+```
 superagent localhost:3000/api/challenges/newchallenge post {
 challengeName:'cool challenge name', 
 creator: 'user', 
 image: 'imagestring', 
-latitude:34534, 
-longitude:43536, 
-altitude:83736, 
-timestamp:3736, 
-eat:'FMCRLPvuEKjTL1uqz+FzaWJSgINAUssPeu5dWGw3KK/p'
+latitude: 47.6097, 
+longitude: 122.331, 
+altitude: 83736, 
+timestamp: 3736, 
+eat: 'token'
 }
+```
 
-required: 
+Required parameters are:
+
+```
 challengeName: string
 creator: string (username)
 image: string
 eat: token (string)
+```
 
 
 ####Challenge will look like this in the database:
@@ -46,18 +51,22 @@ eat: token (string)
 
 ###Example for submitting completed challenge with superagent: 
 
+```
 superagent localhost:3000/api/challenges/submit/aeb71530-ff78-11e4-be6d-51b759bfdd0b patch {
 newRating: 5, 
 submissionsMsg: 'hey yah', 
 username: 'user', 
 image: 'image string', 
 eat: 'ffUbq7HG182rOAdnvYGiy4q7ZGZW0t8GEhSCqzetXOfv'}
+```
 
-All above are required!
+All of the above are required parameters!
 
 You'll get this as a response:
-{ imageURL: 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg' }
 
+```
+{ imageURL: 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg' }
+```
 
 
 ####Challenge will look like this in the database after submissions:
