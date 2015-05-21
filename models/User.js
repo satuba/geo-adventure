@@ -16,14 +16,16 @@ var userSchema = mongoose.Schema({
 userSchema.methods.generateHash = function(password, callback) {
   bcrypt.genSalt(8, function(err, salt) {
     if(err) {
-      return console.log(err);
+      console.log(err);
+      return res.status(500).json({msg: 'internal server error'});
     }
 
     bcrypt.hash(password, salt, null, function(err, hash) {
       if(err) {
-        return console.log(err);
+        console.log(err);
+        return res.status(500).json({msg: 'internal server error'});
       }
-      
+
       callback(null, hash);
     });
   });

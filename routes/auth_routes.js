@@ -21,6 +21,14 @@ module.exports = function(router, passport) {
       return res.status(417).json({msg: 'invalid email'});
     }
 
+    if (validator.isNull(req.body.email)) {
+      return res.status(417).json({msg: 'email is required'});
+    }
+
+    if (validator.isNull(req.body.username)) {
+      return res.status(417).json({msg: 'username is required'});
+    }
+
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
@@ -37,14 +45,14 @@ module.exports = function(router, passport) {
           var grabError = JSON.parse(JSON.stringify(err));
           var cleanError = grabError.errmsg.substr(57, 15);
           //could not create user
-          res.status(500).json({msg: cleanError});
+          return res.status(500).json({msg: cleanError});
         }
 
         user.generateToken(process.env.APP_SECRET, function(err, token) {
           if(err) {
             console.log(err);
             //error generating token
-            res.status(500).json({msg: 'no token'});
+            return res.status(500).json({msg: 'no token'});
           }
 
           res.json({token: token});
