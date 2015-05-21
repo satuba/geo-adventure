@@ -122,7 +122,7 @@ You'll get the image URL as a response:
 ```
 {
   '_id' : ObjectId('555d6a6c9dcb17e4951277a5'),
-  'imageURL' : 'https://shrouded-plateau-6281.herokuapp.com/img/challenge6.jpg',
+  'imageURL' : 'https://exampleurl.com/img/challenge2.jpg',
   'submissionsCount' : 2,
   'challengeId' : 'aeb71530-ff78-11e4-be6d-51b759bfdd0b',
   'challengeName' : 'cool challenge name',
