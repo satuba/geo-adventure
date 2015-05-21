@@ -45,8 +45,8 @@ eat: token (string)
   loc: 
    { timestamp: 3736,
      altitude: 83736,
-     longitude: 43536,
-     latitude: 34534 } 
+     longitude: 122.331,
+     latitude: 47.6097 } 
 }
 ```
 
