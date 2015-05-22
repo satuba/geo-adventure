@@ -17,4 +17,15 @@ module.exports = function(router) {
       res.end();
     });
   });
+
+  router.get('/about', function(req, res) {
+    fs.readFile('./public/index.html', function (err, data) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      if (err) {
+        return console.log(err);
+      }
+      res.write(data);
+      res.end();
+    });
+  });
 };
