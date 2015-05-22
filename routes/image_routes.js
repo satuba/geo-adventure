@@ -18,7 +18,7 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/about', function (req, res) {
+  router.get('/about', functiong(req, res) {
     fs.readFile('./public/index.html', function (err, data) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       if (err) {
@@ -27,5 +27,5 @@ module.exports = function(router) {
       res.write(data);
       res.end();
     });
-  })
+  });
 };
