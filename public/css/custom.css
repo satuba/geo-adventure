@@ -1,0 +1,101 @@
+@import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:400,700);
+@import url(http://fonts.googleapis.com/css?family=Patua+One);
+
+body {
+  /*background-color: hsla(48, 37%, 100%, 1.0);*/
+  margin: 0 auto;
+  background-image: url(../img/milky-way-472971_1280.jpg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+.container {
+  height: 85%;
+}
+
+main {
+  background-image: url(../img/globe-icon-2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 3% auto auto auto;
+  height: 100%;
+  width: 100%;
+  /*margin-top: 3%;*/
+}
+
+main p {
+  text-align: center;
+}
+
+header {
+  width: 100%;
+}
+
+h1 {
+  color: #256B00;
+  text-align: center;
+  margin: 20px auto auto auto;
+  font-family: Stardos Stencil;
+  font-size: 4em;
+}
+
+h2 {
+  color: #256B00;
+  text-align: center;
+  margin: 20px auto auto auto;
+  font-family: Stardos Stencil;
+  font-size: 2em;
+}
+
+.team {
+  margin: 5% auto auto auto;
+  width: 60%;
+  display: inline;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.image-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+ul {
+  text-align: left;
+  margin-left: 33%;
+  margin-top: 2%;
+  font-size: 1.2em;
+  font-family: Patua One;
+}
+p {
+  color: #FFF4BD;
+  font-size: 1.25em;
+  font-family: Patua One;
+}
+img {
+  position: relative;
+  margin-top: -14%;
+  margin-left: 65%;
+}
+.team2 {
+  width: 65%;
+  margin: auto auto auto auto;
+}
+.download {
+  font-weight: bold;
+}
+
+.team h2 {
+  padding-top: 10%;
+  margin-top: -5%;
+  font-size: 3em;
+  color: #a60707;
+}
