@@ -12,7 +12,6 @@ var expect = chai.expect;
 var eat = require('eat');
 
 var User = require('../models/User.js');
-var saveUserToken = '';
 
 describe('User REST API test', function() {
   after(function(done) {
@@ -26,7 +25,6 @@ describe('User REST API test', function() {
       .post('/api/create_user')
       .send({username: 'claudiaTest', email: 'claudiaTest@example.com', password: 'soccer15'})
       .end(function(err, res) {
-        saveUserToken = res.body.token;
         expect(err).to.eql(null);
         expect(res.body).to.have.property('token');
         done();

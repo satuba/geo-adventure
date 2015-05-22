@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var challengeSchema = mongoose.Schema({
-  challengeName: { type: String, required: true},
+  challengeName: {type: String, required: true},
   challengeId: String,
   loc: {
   	latitude: Number,

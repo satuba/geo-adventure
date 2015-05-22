@@ -8,7 +8,6 @@ module.exports = function(router, passport) {
   router.use(bodyparser.json({limit: '50mb'}));
   router.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 
-
   router.post('/create_user', function(req, res) {
     //add layer of protection
     var newUserData = JSON.parse(JSON.stringify(req.body));
@@ -31,7 +30,7 @@ module.exports = function(router, passport) {
 
     newUser.basic.email = req.body.email;
     newUser.basic.password = newUser.generateHash(req.body.password, function(err, hash) {
-      if(err) {
+      if (err) {
         console.log(err);
         //could not save password
         return res.status(500).json({msg: 'no password'});
@@ -40,7 +39,7 @@ module.exports = function(router, passport) {
       newUser.basic.password = hash;
 
       newUser.save(function(err, user) {
-        if(err) {
+        if (err) {
           console.log(err);
           var grabError = JSON.parse(JSON.stringify(err));
           var cleanError = grabError.errmsg.substr(57, 15);
@@ -49,7 +48,7 @@ module.exports = function(router, passport) {
         }
 
         user.generateToken(process.env.APP_SECRET, function(err, token) {
-          if(err) {
+          if (err) {
             console.log(err);
             //error generating token
             return res.status(500).json({msg: 'no token'});
@@ -63,7 +62,7 @@ module.exports = function(router, passport) {
 
   router.get('/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
     req.user.generateToken(process.env.APP_SECRET, function(err, token) {
-      if(err) {
+      if (err) {
         console.log(err);
         return res.status(500).json({msg: 'error generating token'});
       }
