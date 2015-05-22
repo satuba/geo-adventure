@@ -33,7 +33,7 @@ describe('challenges', function() {
     });
   });
 
-  it('should post', function(done) {
+  it('should post a new challenge', function(done) {
     chai.request('localhost:3000')
     .post('/api/challenges/newchallenge')
     .send({
@@ -87,7 +87,7 @@ describe('challenges', function() {
     });
   });
 
-  it('should update existing donut', function(done) {
+  it('should update existing CHALLENGE', function(done) {
     chai.request('localhost:3000')
     .patch('/api/challenges/submit/' + id)
     .send({
