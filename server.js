@@ -14,6 +14,7 @@ var imageRoutes = express.Router();
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/challenges_development');
 
 app.use(passport.initialize());
+app.use(express.static(__dirname + '/public'));
 
 require('./lib/passport_strat')(passport);
 
