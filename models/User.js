@@ -5,22 +5,22 @@ var bcrypt = require('bcrypt-nodejs');
 var eat = require('eat');
 
 var userSchema = mongoose.Schema({
-  username: { type: String, unique: true},
+  username: {type: String, unique: true},
   basic: {
-    email: { type: String, unique: true, required: true },
-    password: { type: String, required: true }
+    email: {type: String, unique: true, required: true},
+    password: {type: String, required: true}
   },
   completed: Array
 });
 
 userSchema.methods.generateHash = function(password, callback) {
   bcrypt.genSalt(8, function(err, salt) {
-    if(err) {
+    if (err) {
       return console.log(err);
     }
 
     bcrypt.hash(password, salt, null, function(err, hash) {
-      if(err) {
+      if (err) {
         return console.log(err);
       }
 
@@ -31,7 +31,7 @@ userSchema.methods.generateHash = function(password, callback) {
 
 userSchema.methods.checkPassword = function(password, callback) {
   bcrypt.compare(password, this.basic.password, function(err, result) {
-    if(err) {
+    if (err) {
       console.log(err);
       return console.log('could not authenticate password');
     }

@@ -26,7 +26,7 @@ module.exports = function(router) {
   //GET request to get a challenge by challenge id
   router.get('/challenges/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, data) {
-      if(err) {
+      if (err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
@@ -51,7 +51,7 @@ module.exports = function(router) {
     newChallenge.submissionsCount = 0;
     console.log('challengeId for this challenge: ' + newChallenge.challengeId);
 
-    uploadPhoto(imageBuffer, function (fileLocation) {
+    uploadPhoto(imageBuffer, function(fileLocation) {
       newChallenge.imageURL = fileLocation;
       newChallenge.save(function(err, data) {
         if (err) {
@@ -66,7 +66,7 @@ module.exports = function(router) {
   // PATCH request to submit completed challenge
   router.patch('/challenges/submit/:challengeId', eatAuth, function(req, res) {
     Challenge.findOne({'challengeId': req.params.challengeId}, function(err, challenge) {
-      if(err) {
+      if (err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
@@ -95,13 +95,13 @@ module.exports = function(router) {
       (challenge.submitters).push(username);
 
       User.findOne({'username': username}, function(req, user) {
-        if(err) {
+        if (err) {
           console.log(err);
           return res.status(500).json({msg: 'internal server error'});
         }
 
         // create image url
-        uploadPhoto(imageBuffer, function (fileLocation) {
+        uploadPhoto(imageBuffer, function(fileLocation) {
           var submissionInfo = {
             nameOfChallenge: challenge.challengeName,
             imageUrl: fileLocation

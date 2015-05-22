@@ -17,8 +17,8 @@ describe('challenges', function() {
     chai.request('localhost:3000')
       .post('/api/create_user')
       .send({
-        username: 'newtest', 
-        email: 'newtest@example.com', 
+        username: 'newtest',
+        email: 'newtest@example.com',
         password: 'foobar123'
       })
       .end(function(err, res) {
@@ -33,17 +33,17 @@ describe('challenges', function() {
     });
   });
 
-  it('should post', function(done) {
+  it('should post a new challenge', function(done) {
     chai.request('localhost:3000')
     .post('/api/challenges/newchallenge')
     .send({
-      challengeName:'nice challenge', 
-      creator:'newtest', 
-      image: 'image', 
+      challengeName:'nice challenge',
+      creator:'newtest',
+      image: 'image',
       loc: {
-        latitude:34534, 
+        latitude:34534,
         longitude:43536,
-        altitude:83736, 
+        altitude:83736,
         timestamp:3736
       },
       eat: tokenOfTokens})
@@ -64,7 +64,7 @@ describe('challenges', function() {
   it('should get all challenges', function(done) {
     chai.request('localhost:3000')
     .get('/api/challenges')
-    .send({ eat: tokenOfTokens })
+    .send({eat: tokenOfTokens})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.status).to.eql(200);
@@ -77,7 +77,7 @@ describe('challenges', function() {
   it('should get challenge by id', function(done) {
     chai.request('localhost:3000')
     .get('/api/challenges/' + id)
-    .send({ eat: tokenOfTokens })
+    .send({eat: tokenOfTokens})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.status).to.eql(200);
@@ -87,14 +87,14 @@ describe('challenges', function() {
     });
   });
 
-  it('should update existing donut', function(done) {
+  it('should update existing CHALLENGE', function(done) {
     chai.request('localhost:3000')
     .patch('/api/challenges/submit/' + id)
     .send({
-      newRating: 3, 
+      newRating: 3,
       submissionsMsg: 'awesomeee',
-      username: 'newtest', 
-      image: 'image string', 
+      username: 'newtest',
+      image: 'image string',
       eat: tokenOfTokens
     })
     .end(function(err, res) {
@@ -104,5 +104,4 @@ describe('challenges', function() {
       done();
     });
   });
-
 });
