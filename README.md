@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/satuba/geo-adventure.svg?branch=master)](https://travis-ci.org/satuba/geo-adventure)
 
-**Update: now available in the iOS App Store! [GeoPhotoHunt](https://itunes.apple.com/us/app/geophotohunt)
+**Update: now available in the iOS App Store! [GeoPhotoHunt](https://itunes.apple.com/us/app/geophotohunt)**
 
 This is a RESTful API that accepts requests and generates responses in JSON data to create geo challenges and complete existing challenges. It utilizes [Encrypted Authentication Tokens](https://github.com/toastynerd/eat).
 
